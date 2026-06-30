@@ -1,0 +1,44 @@
+{
+  "name": "n8n-mcp-local-setup",
+  "version": "0.1.0",
+  "description": "Cross-platform local installer for the open source n8n-mcp HTTP server, with Codex and Claude Code setup.",
+  "type": "module",
+  "homepage": "https://github.com/pedrogrigs/n8n-mcp-local-setup#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedrogrigs/n8n-mcp-local-setup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pedrogrigs/n8n-mcp-local-setup/issues"
+  },
+  "bin": {
+    "n8n-mcp-local": "./bin/n8n-mcp-local.js",
+    "n8n-mcp-local-setup": "./bin/n8n-mcp-local.js"
+  },
+  "scripts": {
+    "start": "node ./bin/n8n-mcp-local.js",
+    "install-local": "node ./bin/n8n-mcp-local.js install",
+    "doctor": "node ./bin/n8n-mcp-local.js doctor",
+    "check": "node --check ./bin/n8n-mcp-local.js"
+  },
+  "keywords": [
+    "n8n",
+    "mcp",
+    "codex",
+    "claude-code",
+    "installer",
+    "local"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "docs/",
+    "prompts/",
+    "scripts/",
+    "README.md",
+    "LICENSE"
+  ]
+}
