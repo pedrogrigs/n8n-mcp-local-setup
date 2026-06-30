@@ -1,53 +1,76 @@
-# n8n MCP Local Setup
+<p align="center">
+  <img src="docs/assets/terminal-preview.svg" alt="n8n MCP Local Setup terminal preview" width="760">
+</p>
 
-One command to run the open source `n8n-mcp` on your own computer and connect it to Codex, Claude Code, or any MCP-compatible AI agent.
+<h1 align="center">n8n MCP Local Setup</h1>
 
-[![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-339933)](https://nodejs.org)
-[![No Docker](https://img.shields.io/badge/Docker-not_required-2496ED)](#)
-[![MCP HTTP](https://img.shields.io/badge/MCP-HTTP-111827)](#)
-[![Windows macOS Linux](https://img.shields.io/badge/Windows%20%7C%20macOS%20%7C%20Linux-supported-0f766e)](#)
+<p align="center">
+  Run the open source <code>n8n-mcp</code> locally and connect your own n8n instance to Codex, Claude Code, or any MCP-compatible AI agent.
+</p>
 
-No Docker. No hosted `api.n8n-mcp.com`. Your n8n API key stays on your machine.
+<p align="center">
+  <a href="https://github.com/pedrogrigs/n8n-mcp-local-setup/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/pedrogrigs/n8n-mcp-local-setup/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://nodejs.org"><img alt="Node.js 18+" src="https://img.shields.io/badge/Node.js-18%2B-339933"></a>
+  <img alt="No Docker" src="https://img.shields.io/badge/Docker-not_required-2496ED">
+  <img alt="MCP HTTP" src="https://img.shields.io/badge/MCP-HTTP-111827">
+  <img alt="Windows macOS Linux" src="https://img.shields.io/badge/Windows%20%7C%20macOS%20%7C%20Linux-supported-0f766e">
+</p>
 
-## Quick Install
+<p align="center">
+  <strong>No Docker.</strong> No hosted <code>api.n8n-mcp.com</code>. Your n8n API key stays on your machine.
+</p>
 
-You need Node.js 18+ installed first.
+## Install
+
+You only need Node.js 18+.
 
 ```bash
 npx -y github:pedrogrigs/n8n-mcp-local-setup install
 ```
 
-The installer asks for:
+The installer asks for three things:
 
-- Your n8n instance URL
-- Your n8n API key
-- The local MCP port, default `3007`
+| Input | Example |
+| --- | --- |
+| n8n URL | `https://n8n.example.com` |
+| n8n API key | Your n8n user API key |
+| Local MCP port | `3007` |
 
-When it finishes, your local MCP server runs at:
+When it finishes, your local MCP endpoint is ready at:
 
 ```text
 http://127.0.0.1:3007/mcp
 ```
 
-## What This Does
+Restart Codex or Claude Code after install so they reload MCP configuration.
 
-This installer turns your computer into a local MCP bridge for n8n.
+## Why Use This
 
-It automatically:
+The hosted n8n MCP endpoint is convenient, but a local setup is better when you want control.
 
-- Installs the open source npm package `n8n-mcp`
-- Runs it in HTTP mode on `127.0.0.1`
+| Hosted bridge | Local bridge with this repo |
+| --- | --- |
+| API key leaves your machine | API key stays in your user folder |
+| Depends on a third-party endpoint | Runs on `127.0.0.1` |
+| Manual client setup | Codex and Claude Code configured automatically |
+| Remote availability matters | Works while your computer is on |
+
+## What It Configures
+
+The installer automatically:
+
+- Installs the npm package `n8n-mcp`
+- Runs the correct HTTP entrypoint for `n8n-mcp`
 - Generates a strong local bearer token
-- Saves config in your user folder
-- Starts the MCP server now
-- Enables autostart when you log in
+- Starts a local MCP server on `127.0.0.1`
+- Enables autostart on login
 - Configures Codex if installed
 - Configures Claude Code if installed
-- Removes old MCP config pointing to `https://api.n8n-mcp.com`
-- Tests `/health`
-- Tests MCP `tools/list` when possible
+- Replaces old configs pointing to `https://api.n8n-mcp.com`
+- Verifies `/health`
+- Verifies MCP `tools/list` when possible
 
-## Supported Systems
+## Platform Support
 
 | System | Autostart method |
 | --- | --- |
@@ -56,23 +79,37 @@ It automatically:
 | Linux | systemd user service |
 | Linux fallback | XDG autostart entry |
 
-## Install Commands
+## Common Commands
 
-### Windows PowerShell
-
-```powershell
-npx -y github:pedrogrigs/n8n-mcp-local-setup install
-```
-
-### macOS or Linux
+Check status:
 
 ```bash
-npx -y github:pedrogrigs/n8n-mcp-local-setup install
+npx -y github:pedrogrigs/n8n-mcp-local-setup status
 ```
 
-### Non-interactive install
+Run diagnostics:
 
-Use this only on your own machine or in a secure shell session.
+```bash
+npx -y github:pedrogrigs/n8n-mcp-local-setup doctor
+```
+
+Restart the local server:
+
+```bash
+npx -y github:pedrogrigs/n8n-mcp-local-setup restart
+```
+
+Print generic MCP client snippets:
+
+```bash
+npx -y github:pedrogrigs/n8n-mcp-local-setup snippets
+```
+
+## Non-Interactive Install
+
+Use this only in a secure shell session.
+
+macOS/Linux:
 
 ```bash
 N8N_API_KEY="your-api-key" npx -y github:pedrogrigs/n8n-mcp-local-setup install --yes --url https://your-n8n.example.com --port 3007
@@ -85,49 +122,7 @@ $env:N8N_API_KEY="your-api-key"
 npx -y github:pedrogrigs/n8n-mcp-local-setup install --yes --url https://your-n8n.example.com --port 3007
 ```
 
-## After Install
-
-Restart Codex or Claude Code so they reload MCP configuration.
-
-In Codex, run:
-
-```text
-/mcp
-```
-
-You should see `n8n-mcp` pointing to:
-
-```text
-http://127.0.0.1:3007/mcp
-```
-
-## Daily Commands
-
-### Check status
-
-```bash
-npx -y github:pedrogrigs/n8n-mcp-local-setup status
-```
-
-### Run diagnostics
-
-```bash
-npx -y github:pedrogrigs/n8n-mcp-local-setup doctor
-```
-
-### Restart the local server
-
-```bash
-npx -y github:pedrogrigs/n8n-mcp-local-setup restart
-```
-
-### Print generic MCP snippets
-
-```bash
-npx -y github:pedrogrigs/n8n-mcp-local-setup snippets
-```
-
-## Local Files
+## Where Secrets Are Stored
 
 The installer creates a local runtime folder:
 
@@ -140,39 +135,45 @@ That folder contains `config.json` with your n8n API key and local MCP token.
 
 Do not publish or share that file.
 
-## Manual Service Commands
+## Codex
 
-Windows:
+The installer updates `~/.codex/config.toml` and creates a backup before editing.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME\.n8n-mcp-local\start.ps1"
-powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME\.n8n-mcp-local\stop.ps1"
-powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME\.n8n-mcp-local\restart.ps1"
-powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME\.n8n-mcp-local\status.ps1"
+After installing, restart Codex and run:
+
+```text
+/mcp
 ```
 
-macOS/Linux:
+You should see `n8n-mcp` pointing to:
+
+```text
+http://127.0.0.1:3007/mcp
+```
+
+## Claude Code
+
+If the `claude` command exists, the installer uses Claude Code's MCP CLI to add the local HTTP server at user scope.
+
+After installing, restart Claude Code.
+
+You can verify with:
 
 ```bash
-~/.n8n-mcp-local/start.sh
-~/.n8n-mcp-local/stop.sh
-~/.n8n-mcp-local/restart.sh
-~/.n8n-mcp-local/status.sh
+claude mcp list
 ```
 
-## Agent Install Prompt
+## Agent Prompt
 
-Prefer having Codex, Claude Code, or another local agent install it for you?
-
-Send this prompt to your agent:
+If you prefer to let a local coding agent run the setup, send it this prompt:
 
 [prompts/AGENT_INSTALL_PROMPT.md](prompts/AGENT_INSTALL_PROMPT.md)
 
-The prompt tells the agent how to install, configure, validate, and troubleshoot the local MCP setup safely.
+The prompt includes the important implementation detail learned from real setup: for HTTP mode, run `node_modules/n8n-mcp/dist/mcp/index.js`, not the npm `n8n-mcp` stdio wrapper.
 
 ## Generic MCP Config
 
-For MCP clients that support HTTP:
+For clients that support HTTP:
 
 ```json
 {
@@ -188,7 +189,7 @@ For MCP clients that support HTTP:
 }
 ```
 
-For MCP clients that only support stdio:
+For clients that only support stdio:
 
 ```json
 {
@@ -207,62 +208,46 @@ For MCP clients that only support stdio:
 }
 ```
 
-Your local token is saved in `~/.n8n-mcp-local/config.json`.
-
-## Security Notes
-
-- The n8n API key stays on your computer.
-- The local MCP endpoint is bound to `127.0.0.1`.
-- The MCP endpoint requires a bearer token.
-- The installer does not use Docker.
-- Existing unrelated MCP configs are preserved.
-- Old configs pointing to `https://api.n8n-mcp.com` are replaced with the local server.
-
 ## Troubleshooting
 
-### Node.js is missing or too old
-
-Install Node.js LTS from:
+Node.js is missing or too old:
 
 ```text
-https://nodejs.org
+Install Node.js LTS from https://nodejs.org, then run the installer again.
 ```
 
-Then run the installer again.
-
-### Codex or Claude Code does not show the MCP
-
-Restart the app after install.
-
-Then run:
+Codex or Claude Code does not show the MCP:
 
 ```bash
 npx -y github:pedrogrigs/n8n-mcp-local-setup doctor
 ```
 
-### Port already in use
-
-Run the installer again and choose another port:
+Port already in use:
 
 ```bash
 npx -y github:pedrogrigs/n8n-mcp-local-setup install --port 3010
 ```
 
-### You want to rotate the local token
+Rotate the local bearer token:
 
 ```bash
 npx -y github:pedrogrigs/n8n-mcp-local-setup install --rotate-token
 ```
 
-Restart Codex and Claude Code afterward.
+## Project Status
 
-## Why This Exists
+This project is intentionally small: a focused installer and supervisor for local `n8n-mcp`.
 
-The hosted n8n MCP endpoint is convenient, but many people prefer a local setup:
+Pull requests are welcome for:
 
-- Your API key stays local
-- Your MCP server keeps running while your computer is on
-- You can connect multiple local AI tools to the same n8n instance
-- You avoid depending on a third-party hosted MCP bridge
+- More MCP clients
+- Better Linux desktop fallbacks
+- Improved diagnostics
+- Safer migration paths from existing configs
 
-This repo packages that setup into one command.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
+
+## License
+
+MIT
+

@@ -1,0 +1,16 @@
+<svg width="1200" height="520" viewBox="0 0 1200 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">n8n MCP Local Setup terminal preview</title>
+  <desc id="desc">A terminal preview showing one command installing n8n MCP locally.</desc>
+  <rect width="1200" height="520" rx="28" fill="#0B1020"/>
+  <rect x="34" y="34" width="1132" height="452" rx="18" fill="#111827" stroke="#253047" stroke-width="2"/>
+  <circle cx="72" cy="70" r="10" fill="#EF4444"/>
+  <circle cx="106" cy="70" r="10" fill="#F59E0B"/>
+  <circle cx="140" cy="70" r="10" fill="#10B981"/>
+  <text x="70" y="134" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">$ npx -y github:pedrogrigs/n8n-mcp-local-setup install</text>
+  <text x="70" y="190" fill="#E5E7EB" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">Local n8n-mcp setup</text>
+  <text x="70" y="238" fill="#A7F3D0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">[OK] Node.js requirement passed</text>
+  <text x="70" y="284" fill="#A7F3D0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">[OK] n8n-mcp installed locally</text>
+  <text x="70" y="330" fill="#A7F3D0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">[OK] Codex and Claude Code configured</text>
+  <text x="70" y="376" fill="#A7F3D0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="24">[OK] /health and tools/list verified</text>
+  <text x="70" y="438" fill="#67E8F9" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">http://127.0.0.1:3007/mcp</text>
+</svg>
